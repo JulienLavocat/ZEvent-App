@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.thebad.zevent.zevent">
    <application
-        android:label="zevent"
+        android:label="ZEvent 2021"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
@@ -38,4 +38,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
