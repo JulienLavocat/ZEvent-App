@@ -5,15 +5,15 @@ import 'package:zevent/widgets/notifications_manager/notifications/streamer_game
 import 'package:zevent/widgets/notifications_manager/notifications/streamer_notification.dart';
 
 class NotificationsManager {
-  static List<String> notifsNames = [
+  static List<String> notificationsNames = [
     "Streamer",
     "Jeu",
     "Streamer et jeu",
     "Statistiques"
   ];
 
-  static getBuilder(String notif, BuildContext context) {
-    switch (notif) {
+  static getBuilder(String notificationType, BuildContext context) {
+    switch (notificationType) {
       case "Streamer":
         return StreamerNotification().build(context);
       case "Jeu":

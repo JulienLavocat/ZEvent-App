@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:zevent/models/game_views.dart';
 import 'package:zevent/screens/game_details.dart';
+import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -13,22 +15,7 @@ class GamesPage extends StatefulWidget {
   GamesPageState createState() => GamesPageState();
 }
 
-class GameViews {
-  String name;
-  String id;
-  int viewers;
-
-  GameViews({required this.name, required this.viewers, required this.id});
-
-  factory GameViews.fromJson(String id, Map<String, dynamic> json) {
-    return GameViews(name: json["name"], id: id, viewers: json["viewers"]);
-  }
-}
-
 class GamesPageState extends State<GamesPage> {
-  final DatabaseReference ref =
-      FirebaseDatabase.instance.reference().child("games");
-
   late StreamSubscription<Event> _subscription;
   List<GameViews>? games;
 
@@ -36,14 +23,10 @@ class GamesPageState extends State<GamesPage> {
   void initState() {
     super.initState();
 
-    _subscription = ref.onValue.listen((event) => setState(() {
-          games = Map<String, Object?>.from(event.snapshot.value)
-              .entries
-              .map((e) => GameViews.fromJson(
-                  e.key, Map<String, dynamic>.from(e.value as Map)))
-              .toList()
-            ..sort((a, b) => b.viewers.compareTo(a.viewers));
-        }));
+    _subscription =
+        RealtimeDatabase.subscribeToGames((gameViews) => setState(() {
+              games = gameViews..sort((a, b) => b.viewers.compareTo(a.viewers));
+            }));
   }
 
   @override
