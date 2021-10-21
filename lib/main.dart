@@ -25,6 +25,7 @@ class _AppState extends State<App> {
 
   static Future<FirebaseApp> performInitialization() async {
     FirebaseApp firebase = await Firebase.initializeApp();
+
     await FirebaseAuth.instance.signInAnonymously();
     return firebase;
   }

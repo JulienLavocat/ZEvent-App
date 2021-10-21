@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,12 +87,25 @@ class NotificationsPageState extends State<NotificationsPage> {
   CollectionReference notificationsCollection =
       FirebaseFirestore.instance.collection("notifications");
 
-  late Future<List<NotificationData>> notifications;
+  late StreamSubscription _subscription;
+
+  List<NotificationData>? _notifications;
 
   @override
   void initState() {
     super.initState();
-    notifications = fetchNotifications();
+
+    _subscription = notificationsCollection
+        .doc(auth.currentUser!.uid)
+        .snapshots()
+        .listen((event) => setState(() {
+              _notifications = event.exists
+                  ? (Map.from(event.data() as Map)["notifications"] as List)
+                      .map((e) => NotificationData.fromJson(e))
+                      .toList()
+                  : null;
+            }));
+
     messaging
         .getToken(
             vapidKey:
@@ -98,58 +113,37 @@ class NotificationsPageState extends State<NotificationsPage> {
         .then((r) => print(r));
   }
 
-  Future<List<NotificationData>> fetchNotifications() async {
-    var res = (await notificationsCollection.doc(auth.currentUser!.uid).get());
-
-    if (!res.exists) {
-      await notificationsCollection
-          .doc(auth.currentUser!.uid)
-          .set({"notifications": []});
-      return [];
-    }
-    return (Map.from(res.data() as Map)["notifications"] as List)
-        .map((e) => NotificationData.fromJson(e))
-        .toList();
+  @override
+  void dispose() {
+    super.dispose();
+    _subscription.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UI.getAppBar("Notifications"),
-      drawer: UI.getDrawer(context),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => showDialog(
-            context: context,
-            builder: (ctx) => const SimpleDialog(
-                  title:
-                      Center(child: Text("Ajouter une nouvelle notification")),
-                  children: [NotificationCreatorPage()],
-                )),
-      ),
-      body: FutureBuilder(
-        future: notifications,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print(snapshot.error);
-            return Center(
-              child: Text("An error occured: \n" + snapshot.error.toString()),
-            );
-          }
-          if (snapshot.hasData) {
-            return getPage(snapshot.data as List<NotificationData>);
-          }
-          return UI.getCenteredLoadingindicator();
-        },
-      ),
-    );
+        appBar: UI.getAppBar("Notifications"),
+        drawer: UI.getDrawer(context),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () => showDialog(
+              context: context,
+              builder: (ctx) => const SimpleDialog(
+                    title: Center(
+                        child: Text("Ajouter une nouvelle notification")),
+                    children: [NotificationCreatorPage()],
+                  )),
+        ),
+        body: _notifications != null
+            ? getPage()
+            : UI.getCenteredLoadingindicator());
   }
 
-  Widget getPage(List<NotificationData> channels) {
+  Widget getPage() {
     return ListView.separated(
       separatorBuilder: (ctx, i) => const Divider(),
-      itemCount: channels.length,
-      itemBuilder: (ctx, i) => channels[i].toListTile(ctx),
+      itemCount: _notifications!.length,
+      itemBuilder: (ctx, i) => _notifications![i].toListTile(ctx),
     );
   }
 }
