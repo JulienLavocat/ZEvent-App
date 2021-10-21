@@ -1,11 +1,11 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:zevent/models/notifications_data.dart';
 import 'package:zevent/models/streamers.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:zevent/screens/notifications.dart';
 
 class NotificationsManager {
   static List<String> notifsNames = [
