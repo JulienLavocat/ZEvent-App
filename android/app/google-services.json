@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "653828792922",
+    "firebase_url": "https://zevent-33dd3.firebaseio.com",
+    "project_id": "zevent-33dd3",
+    "storage_bucket": "zevent-33dd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653828792922:android:2bf1725b3cb2fc2f2e2e63",
+        "android_client_info": {
+          "package_name": "me.julienlavocat.zevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653828792922-6rehjdejp8q268d5169is00j254nvhq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9NDpFt0rAXk5oP9idQk7ScVmpqOS4zJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653828792922-6rehjdejp8q268d5169is00j254nvhq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
