@@ -3,6 +3,7 @@ import 'dart:async';
 import "package:intl/intl.dart";
 import 'package:flutter/material.dart';
 import 'package:zevent/models/stats.dart';
+import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -14,8 +15,6 @@ class ZEventPage extends StatefulWidget {
 }
 
 class ZEventPageState extends State<ZEventPage> {
-  final FirebaseDatabase database = FirebaseDatabase.instance;
-
   late StreamSubscription<Event> _statsSubscription;
   StatsModel? stats;
 
@@ -23,21 +22,10 @@ class ZEventPageState extends State<ZEventPage> {
   void initState() {
     super.initState();
 
-    database.reference().child("stats").get().then((snap) {
-      var newStats = StatsModel.fromJson(Map<String, dynamic>.from(snap.value));
-      setState(() {
-        stats = newStats;
-      });
-      return newStats;
-    });
-
     _statsSubscription =
-        database.reference().child("stats").onValue.listen((event) {
-      setState(() {
-        stats = StatsModel.fromJson(
-            Map<String, dynamic>.from(event.snapshot.value));
-      });
-    });
+        RealtimeDatabase.subscribeToStats((stats) => setState(() {
+              this.stats = stats;
+            }));
   }
 
   @override

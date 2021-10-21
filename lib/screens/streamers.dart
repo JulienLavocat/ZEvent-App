@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:zevent/models/streamers.dart';
+import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -23,13 +24,10 @@ class StreamersPageState extends State<StreamersPage> {
   void initState() {
     super.initState();
     _streamersSubscription =
-        database.reference().child("streamers").onValue.listen((event) {
-      setState(() {
-        streamers = (event.snapshot.value as List<Object?>)
-            .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
-            .toList();
-      });
-    });
+        RealtimeDatabase.subscribeToStreamers((streamers) => setState(() {
+              this.streamers = streamers
+                ..sort((a, b) => b.viewers.compareTo(a.viewers));
+            }));
   }
 
   @override

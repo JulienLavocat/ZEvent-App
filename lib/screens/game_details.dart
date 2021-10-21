@@ -3,22 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:zevent/models/streamers.dart';
+import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class GameDetails extends StatefulWidget {
   static const routeName = "/games";
 
-  GameDetails({Key? key}) : super(key: key);
+  const GameDetails({Key? key}) : super(key: key);
 
   @override
   GameDetailsState createState() => GameDetailsState();
 }
 
 class GameDetailsState extends State<GameDetails> {
-  DatabaseReference ref =
-      FirebaseDatabase.instance.reference().child("streamers");
-
   late StreamSubscription<Event> _subscription;
   List<Streamer>? streamers;
 
@@ -26,13 +24,12 @@ class GameDetailsState extends State<GameDetails> {
   void initState() {
     super.initState();
 
-    _subscription = ref.onValue.listen((event) {
-      setState(() {
-        streamers = (event.snapshot.value as List<Object?>)
-            .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
-            .toList();
-      });
-    });
+    _subscription =
+        RealtimeDatabase.subscribeToStreamers((streamers) => setState(() {
+              this.streamers = streamers;
+
+              /// TODO: Pass arguments to initstate and filter list here instead of in [buildPage]
+            }));
   }
 
   @override

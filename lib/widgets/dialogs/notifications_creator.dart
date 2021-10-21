@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zevent/utils/notifications_manager.dart';
+import 'package:zevent/widgets/notifications_manager/notifications_manager.dart';
 
 class NotificationCreatorPage extends StatefulWidget {
   const NotificationCreatorPage({Key? key}) : super(key: key);
@@ -15,11 +15,6 @@ class NotificationCreatorState extends State<NotificationCreatorPage> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5), child: getPage());
-    // return Scaffold(
-    //   appBar: UI.getAppBar("Ajouter une notification"),
-    //   body:
-    //       Padding(padding: EdgeInsets.fromLTRB(10, 5, 10, 5), child: getPage()),
-    // );
   }
 
   Widget getPage() => Column(children: <Widget>[getDropdown(), getSpecific()]);
@@ -29,16 +24,18 @@ class NotificationCreatorState extends State<NotificationCreatorPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Type: "),
+          // const Text("Type: "),
           DropdownButton<String>(
-            hint: const Text("Type"),
+            hint: const Text("Type de notification"),
             value: current,
             onChanged: (n) {
               setState(() {
                 current = n!;
               });
             },
-            items: NotificationsManager.notifsNames.map(getDropDown).toList(),
+            items: NotificationsManager.notificationsNames
+                .map(getDropDown)
+                .toList(),
           )
         ]);
   }
