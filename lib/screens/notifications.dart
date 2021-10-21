@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:zevent/models/notifications_data.dart';
-import 'package:zevent/screens/notifications_creator.dart';
+import 'package:zevent/widgets/dialogs/notifications_creator.dart';
 import 'package:zevent/utils/ui.dart';
 
 class NotificationsPage extends StatefulWidget {
