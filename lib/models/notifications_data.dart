@@ -23,7 +23,7 @@ class NotificationData {
 
   ListTile toListTile(BuildContext ctx) {
     return ListTile(
-      title: Text("$type - $streamer - $game"),
+      title: Text(humanize()),
       onLongPress: () async {
         await FirebaseFirestore.instance
             .collection("notifications")
@@ -51,6 +51,19 @@ class NotificationData {
         };
       default:
         return {};
+    }
+  }
+
+  String humanize() {
+    switch (type) {
+      case NotificationsType.game:
+        return "Un streamer joue a $game";
+      case NotificationsType.online:
+        return "$streamer a lancé son live";
+      case NotificationsType.gameStreamer:
+        return "$streamer joue a $game";
+      default:
+        return super.toString();
     }
   }
 
