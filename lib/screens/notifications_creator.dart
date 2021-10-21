@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zevent/utils/notifications_manager.dart';
+import 'package:zevent/widgets/notifications_manager/notifications_manager.dart';
 
 class NotificationCreatorPage extends StatefulWidget {
   const NotificationCreatorPage({Key? key}) : super(key: key);
