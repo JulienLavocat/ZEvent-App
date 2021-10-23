@@ -31,7 +31,23 @@ class _AppState extends State<App> {
 
     FirebaseMessaging.instance.getToken().then((r) => print(r));
 
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+    FirebaseMessaging.onBackgroundMessage((m) => _handleMessage(m));
+
     return firebase;
+  }
+
+  static _handleMessage(RemoteMessage message) {
+    if (message.data["twitch"] != null) {
+      UI.streamLauncher(message.data["twitch"]);
+    }
   }
 
   @override
