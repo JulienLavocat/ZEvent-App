@@ -32,7 +32,6 @@ class NotificationData {
           "notifications": FieldValue.arrayRemove([toDoc()])
         });
         await FirebaseMessaging.instance.unsubscribeFromTopic(toString());
-        Navigator.of(ctx).pop();
       },
     );
   }
