@@ -25,6 +25,23 @@ class StreamerAndGameNotification extends AbstractNotification {
           autocorrect: false,
           autofocus: false,
           decoration: InputDecoration(hintText: "Nom du jeux"),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: ElevatedButton.icon(
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            label: const Text(
+              "Ajouter la notification",
+              style: TextStyle(color: Colors.white),
+            ),
+            // onPressed: () async {
+            //   Navigator.of(context).pop();
+            // },
+            onPressed: null,
+          ),
         )
       ],
     );

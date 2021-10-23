@@ -9,7 +9,7 @@ class NotificationsManager {
     "Streamer",
     "Jeu",
     "Streamer et jeu",
-    "Statistiques"
+    // "Statistiques"
   ];
 
   static getBuilder(String notificationType, BuildContext context) {

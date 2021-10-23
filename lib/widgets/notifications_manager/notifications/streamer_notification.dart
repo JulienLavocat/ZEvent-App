@@ -55,32 +55,36 @@ class StreamerNotification extends AbstractNotification {
                   onSuggestionSelected: (suggestion) {},
                 ),
         ),
-        ElevatedButton.icon(
-          icon: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          label: const Text(
-            "Ajouter la notification",
-            style: TextStyle(color: Colors.white),
-          ),
-          onPressed: () async {
-            if (streamer.text.length < 3) return;
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: ElevatedButton.icon(
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            label: const Text(
+              "Ajouter la notification",
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () async {
+              if (streamer.text.length < 3) return;
 
-            FirebaseFirestore.instance
-                .collection("notifications")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .update({
-              "notifications": FieldValue.arrayUnion([
-                NotificationData(
-                        type: NotificationsType.online, streamer: streamer.text)
-                    .toDoc()
-              ])
-            });
-            await FirebaseMessaging.instance
-                .subscribeToTopic("online.${streamer.text}");
-            Navigator.of(context).pop();
-          },
+              FirebaseFirestore.instance
+                  .collection("notifications")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .update({
+                "notifications": FieldValue.arrayUnion([
+                  NotificationData(
+                          type: NotificationsType.online,
+                          streamer: streamer.text)
+                      .toDoc()
+                ])
+              });
+              await FirebaseMessaging.instance
+                  .subscribeToTopic("online.${streamer.text}");
+              Navigator.of(context).pop();
+            },
+          ),
         )
       ],
     );

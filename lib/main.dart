@@ -4,6 +4,7 @@ import 'package:zevent/screens/game_details.dart';
 import 'package:zevent/screens/zevent_page.dart';
 import 'package:zevent/utils/UI.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,9 @@ class _AppState extends State<App> {
     FirebaseApp firebase = await Firebase.initializeApp();
 
     await FirebaseAuth.instance.signInAnonymously();
+
+    FirebaseMessaging.instance.getToken().then((r) => print(r));
+
     return firebase;
   }
 
