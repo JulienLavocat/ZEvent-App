@@ -26,4 +26,11 @@ class RealtimeDatabase {
             .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList()));
   }
+
+  static Future<List<Streamer>> getStreamers() {
+    return FirebaseDatabase.instance.reference().child("streamers").once().then(
+        (snapshot) => (snapshot.value as List<Object?>)
+            .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
+            .toList());
+  }
 }

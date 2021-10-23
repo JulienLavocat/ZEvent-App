@@ -17,7 +17,13 @@ class NotificationCreatorState extends State<NotificationCreatorPage> {
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 5), child: getPage());
   }
 
-  Widget getPage() => Column(children: <Widget>[getDropdown(), getSpecific()]);
+  Widget getPage() => Column(children: <Widget>[
+        getDropdown(),
+        Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: getSpecific(),
+        )
+      ]);
 
   Widget getDropdown() {
     return Row(

@@ -10,15 +10,20 @@ class NotificationsType {
 }
 
 class NotificationData {
-  String type; // NotificationsType
+  String type;
   String? game;
   String? streamer;
+  String? streamerDisplayName;
 
-  NotificationData({required this.type, this.game, this.streamer});
+  NotificationData(
+      {required this.type, this.game, this.streamer, this.streamerDisplayName});
 
   factory NotificationData.fromJson(Map<String, dynamic> json) {
     return NotificationData(
-        type: json["type"], game: json["game"], streamer: json["streamer"]);
+        type: json["type"],
+        game: json["game"],
+        streamer: json["streamer"],
+        streamerDisplayName: json["streamerDisplayName"]);
   }
 
   ListTile toListTile(BuildContext ctx) {
@@ -37,20 +42,13 @@ class NotificationData {
   }
 
   Map<String, dynamic> toDoc() {
-    switch (type) {
-      case NotificationsType.game:
-        return {"type": NotificationsType.game, "game": game};
-      case NotificationsType.online:
-        return {"type": NotificationsType.online, "streamer": streamer};
-      case NotificationsType.gameStreamer:
-        return {
-          "type": NotificationsType.game,
-          "streamer": streamer,
-          "game": game
-        };
-      default:
-        return {};
-    }
+    // TODO: Auto serialize
+    return {
+      "type": type,
+      "game": game,
+      "streamer": streamer,
+      "streamerDisplayName": streamerDisplayName
+    };
   }
 
   String humanize() {
@@ -58,9 +56,9 @@ class NotificationData {
       case NotificationsType.game:
         return "Un streamer joue a $game";
       case NotificationsType.online:
-        return "$streamer a lancé son live";
+        return "$streamerDisplayName a lancé son live";
       case NotificationsType.gameStreamer:
-        return "$streamer joue a $game";
+        return "$streamerDisplayName joue a $game";
       default:
         return super.toString();
     }
