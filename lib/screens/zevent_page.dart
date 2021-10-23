@@ -3,6 +3,8 @@ import 'dart:async';
 import "package:intl/intl.dart";
 import 'package:flutter/material.dart';
 import 'package:zevent/models/stats.dart';
+import 'package:zevent/screens/game_details.dart';
+import 'package:zevent/screens/streamers.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -70,18 +72,29 @@ class ZEventPageState extends State<ZEventPage> {
             ListTile(
               title: const Text("Lives en cours"),
               subtitle: Text(stats!.onlineStreams.toString()),
+              onTap: () {
+                Navigator.of(ctx).push(
+                    MaterialPageRoute(builder: (ctx) => const StreamersPage()));
+              },
             ),
             divider,
             ListTile(
-              title: const Text("Chaine la plus regardée"),
-              subtitle: Text(
-                  "${stats!.mostWatchedChannel.name} (${compact.format(stats!.mostWatchedChannel.viewers)})"),
-            ),
+                title: const Text("Chaine la plus regardée"),
+                subtitle: Text(
+                    "${stats!.mostWatchedChannel.name} (${compact.format(stats!.mostWatchedChannel.viewers)})"),
+                onTap: () {
+                  Navigator.of(ctx).push(MaterialPageRoute(
+                      builder: (ctx) => const StreamersPage()));
+                }),
             divider,
             ListTile(
               title: const Text("Jeux le plus regardé"),
               subtitle: Text(
                   "${stats!.mostWatchedGame.name} (${compact.format(stats!.mostWatchedGame.viewers)})"),
+              onTap: () {
+                Navigator.of(ctx).pushNamed(GameDetails.routeName,
+                    arguments: stats!.mostWatchedGame.name);
+              },
             ),
           ],
         ));
