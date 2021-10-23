@@ -41,7 +41,7 @@ class StreamerNotification extends AbstractNotification {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  if (streamer == null) return;
+                  // if (streamer == null) return;
 
                   var data = NotificationData(
                       type: NotificationsType.online,

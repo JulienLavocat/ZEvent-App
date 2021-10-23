@@ -56,7 +56,9 @@ class NotificationData {
       case NotificationsType.game:
         return "Un streamer joue a $game";
       case NotificationsType.online:
-        return "$streamerDisplayName a lancé son live";
+        return streamer != null
+            ? "$streamerDisplayName a lancé son live"
+            : "[Nom] à lancé son live";
       case NotificationsType.gameStreamer:
         return "$streamerDisplayName joue a $game";
       default:
@@ -70,7 +72,9 @@ class NotificationData {
       case NotificationsType.game:
         return "${NotificationsType.game}.$game";
       case NotificationsType.online:
-        return "${NotificationsType.online}.$streamer";
+        return streamer != null
+            ? "${NotificationsType.online}.$streamer"
+            : NotificationsType.online;
       case NotificationsType.gameStreamer:
         return "${NotificationsType.game}.$streamer.$game";
       default:
