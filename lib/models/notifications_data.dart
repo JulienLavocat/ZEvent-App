@@ -14,16 +14,22 @@ class NotificationData {
   String? game;
   String? streamer;
   String? streamerDisplayName;
+  String? gameDisplayName;
 
   NotificationData(
-      {required this.type, this.game, this.streamer, this.streamerDisplayName});
+      {required this.type,
+      this.game,
+      this.streamer,
+      this.streamerDisplayName,
+      this.gameDisplayName});
 
   factory NotificationData.fromJson(Map<String, dynamic> json) {
     return NotificationData(
         type: json["type"],
         game: json["game"],
         streamer: json["streamer"],
-        streamerDisplayName: json["streamerDisplayName"]);
+        streamerDisplayName: json["streamerDisplayName"],
+        gameDisplayName: json["gameDisplayName"]);
   }
 
   ListTile toListTile(BuildContext ctx) {
@@ -42,25 +48,27 @@ class NotificationData {
   }
 
   Map<String, dynamic> toDoc() {
-    // TODO: Auto serialize
     return {
       "type": type,
       "game": game,
       "streamer": streamer,
-      "streamerDisplayName": streamerDisplayName
+      "streamerDisplayName": streamerDisplayName,
+      "gameDisplayName": gameDisplayName
     };
   }
 
   String humanize() {
     switch (type) {
       case NotificationsType.game:
-        return "Un streamer joue a $game";
+        return game != null
+            ? "[Nom] joue à $gameDisplayName"
+            : "[Nom] joue à [Jeu]";
       case NotificationsType.online:
         return streamer != null
             ? "$streamerDisplayName a lancé son live"
             : "[Nom] à lancé son live";
       case NotificationsType.gameStreamer:
-        return "$streamerDisplayName joue a $game";
+        return "$streamerDisplayName joue a $gameDisplayName";
       default:
         return super.toString();
     }
@@ -70,7 +78,9 @@ class NotificationData {
   String toString() {
     switch (type) {
       case NotificationsType.game:
-        return "${NotificationsType.game}.$game";
+        return game != null
+            ? "${NotificationsType.game}.$game"
+            : NotificationsType.game;
       case NotificationsType.online:
         return streamer != null
             ? "${NotificationsType.online}.$streamer"

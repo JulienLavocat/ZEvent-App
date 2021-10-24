@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zevent/models/streamers.dart';
+import 'package:zevent/utils/firestore.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:zevent/widgets/notifications_manager/abstract_notification.dart';
@@ -47,12 +48,8 @@ class StreamerNotification extends AbstractNotification {
                       type: NotificationsType.online,
                       streamer: streamer?.twitch,
                       streamerDisplayName: streamer?.display);
-                  FirebaseFirestore.instance
-                      .collection("notifications")
-                      .doc(FirebaseAuth.instance.currentUser!.uid)
-                      .update({
-                    "notifications": FieldValue.arrayUnion([data.toDoc()])
-                  });
+                  Firestore.addNotification(
+                      FirebaseAuth.instance.currentUser!.uid, data);
                   await FirebaseMessaging.instance
                       .subscribeToTopic(data.toString());
                   Navigator.of(context).pop();

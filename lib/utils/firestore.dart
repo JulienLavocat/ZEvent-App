@@ -13,4 +13,10 @@ class Firestore {
                 .map((e) => NotificationData.fromJson(e))
                 .toList()));
   }
+
+  static addNotification(String userId, NotificationData data) {
+    FirebaseFirestore.instance.collection("notifications").doc(userId).update({
+      "notifications": FieldValue.arrayUnion([data.toDoc()])
+    });
+  }
 }
