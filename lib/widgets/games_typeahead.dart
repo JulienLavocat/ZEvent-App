@@ -25,12 +25,15 @@ class _GameTypeaheadState extends State<GameTypeahead> {
       textFieldConfiguration: TextFieldConfiguration(
         autocorrect: false,
         autofocus: true,
-        decoration: const InputDecoration(hintText: "Nom du streamer"),
+        decoration: const InputDecoration(hintText: "Nom du jeu"),
         controller: controller,
       ),
       suggestionsCallback: (pattern) => Functions.search(pattern),
       debounceDuration: const Duration(milliseconds: 500),
       itemBuilder: (ctx, value) => ListTile(
+        leading: Image.network(value.boxArtUrl
+            .replaceAll("{width}", "300")
+            .replaceAll("{height}", "300")),
         title: Text(value.name),
         contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       ),
