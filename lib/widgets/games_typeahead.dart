@@ -25,11 +25,11 @@ class _GameTypeaheadState extends State<GameTypeahead> {
       textFieldConfiguration: TextFieldConfiguration(
         autocorrect: false,
         autofocus: true,
-        decoration: const InputDecoration(hintText: "Nom du jeu"),
+        decoration: const InputDecoration(hintText: "Nom du jeu (vide = tous)"),
         controller: controller,
       ),
       suggestionsCallback: (pattern) => Functions.search(pattern),
-      debounceDuration: const Duration(milliseconds: 500),
+      // debounceDuration: const Duration(milliseconds: 500),
       itemBuilder: (ctx, value) => ListTile(
         leading: Image.network(value.boxArtUrl
             .replaceAll("{width}", "300")

@@ -29,7 +29,8 @@ class _StreamerTypeaheadState extends State<StreamerTypeahead> {
       textFieldConfiguration: TextFieldConfiguration(
         autocorrect: false,
         autofocus: true,
-        decoration: const InputDecoration(hintText: "Nom du streamer"),
+        decoration:
+            const InputDecoration(hintText: "Nom du streamer (vide = tous)"),
         controller: controller,
       ),
       suggestionsCallback: (pattern) => streamers

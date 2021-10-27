@@ -56,6 +56,15 @@ class NotificationsPageState extends State<NotificationsPage> {
   }
 
   Widget getPage() {
+    if (_notifications!.isEmpty) {
+      return const Center(
+        child: Text(
+          "Vous n'avez pas de notifications actives, ajoutez-en via le bouton en bas à droite",
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+
     return ListView.separated(
       separatorBuilder: (ctx, i) => const Divider(),
       itemCount: _notifications!.length,
