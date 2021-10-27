@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:zevent/models/game_views.dart';
 import 'package:zevent/models/stats.dart';
+import 'package:zevent/models/streamer_goals.dart';
 import 'package:zevent/models/streamers.dart';
 
 class RealtimeDatabase {
@@ -31,6 +32,14 @@ class RealtimeDatabase {
     return FirebaseDatabase.instance.reference().child("streamers").once().then(
         (snapshot) => (snapshot.value as List<Object?>)
             .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
+            .toList());
+  }
+
+  static Future<List<StreamerGoals>> getDonationGoals() {
+    return FirebaseDatabase.instance.reference().child("goals").once().then(
+        (snapshot) => (snapshot.value as List<Object?>)
+            .map((e) =>
+                StreamerGoals.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList());
   }
 }

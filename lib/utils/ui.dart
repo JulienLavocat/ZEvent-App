@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zevent/screens/donation_goals.dart';
 import 'package:zevent/screens/games.dart';
 import 'package:zevent/screens/notifications.dart';
 import 'package:zevent/screens/streamers.dart';
@@ -50,6 +51,16 @@ class UI {
           ),
           const Divider(),
           ListTile(
+            title: const Text("Donation goals"),
+            onTap: () {
+              Navigator.of(ctx).pop();
+              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+              Navigator.of(ctx).push(
+                  MaterialPageRoute(builder: (ctx) => const DonationsGoals()));
+            },
+          ),
+          const Divider(),
+          ListTile(
             title: const Text("Notifications"),
             onTap: () {
               Navigator.of(ctx).pop();
@@ -58,16 +69,6 @@ class UI {
                   builder: (ctx) => const NotificationsPage()));
             },
           ),
-          // const Divider(),
-          // ListTile(
-          //   title: const Text("Faire un don"),
-          //   onTap: () {
-          //     Navigator.of(ctx).pop();
-          //     if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-          //     Navigator.of(ctx)
-          //         .push(MaterialPageRoute(builder: (ctx) => NYIPage()));
-          //   },
-          // )
         ],
       ),
     );
