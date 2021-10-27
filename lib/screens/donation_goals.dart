@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zevent/models/streamer_goals.dart';
+import 'package:zevent/screens/donations_details.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 
@@ -46,5 +47,9 @@ class _DonationsGoalsState extends State<DonationsGoals> {
         s.completed.toString() + "/" + s.donationGoals.length.toString(),
         style: UI.viewerCount,
       ),
-      onTap: () => UI.streamLauncher(s.twitch));
+      onTap: () => Navigator.pushNamed(
+            context,
+            DonationsDetails.routeName,
+            arguments: s,
+          ));
 }

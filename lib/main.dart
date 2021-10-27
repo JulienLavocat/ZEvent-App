@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:zevent/screens/donations_details.dart';
 import 'package:zevent/screens/game_details.dart';
 import 'package:zevent/screens/zevent_page.dart';
 import 'package:zevent/utils/UI.dart';
@@ -77,7 +78,10 @@ class _AppState extends State<App> {
           return UI.getCenteredLoadingindicator();
         },
       ),
-      routes: {GameDetails.routeName: (context) => GameDetails()},
+      routes: {
+        GameDetails.routeName: (context) => const GameDetails(),
+        DonationsDetails.routeName: (context) => const DonationsDetails()
+      },
     );
   }
 }

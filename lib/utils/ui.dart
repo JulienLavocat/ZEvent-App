@@ -7,6 +7,7 @@ import 'package:zevent/screens/games.dart';
 import 'package:zevent/screens/notifications.dart';
 import 'package:zevent/screens/streamers.dart';
 import 'package:zevent/screens/zevent_page.dart';
+import 'package:intl/intl.dart';
 
 class UI {
   static TextStyle onlineStreamer = const TextStyle(color: Colors.green);
@@ -120,5 +121,10 @@ class UI {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  static formatCurrency(dynamic value) {
+    return NumberFormat.currency(decimalDigits: 2, locale: "fr_FR", symbol: "€")
+        .format(value);
   }
 }
