@@ -36,6 +36,7 @@ class StreamerGoals {
   String id;
   String twitch;
   String profileUrl;
+  int completed;
   List<DonationGoal> donationGoals;
 
   StreamerGoals(
@@ -43,7 +44,8 @@ class StreamerGoals {
       required this.donationGoals,
       required this.twitch,
       required this.id,
-      required this.profileUrl});
+      required this.profileUrl,
+      required this.completed});
 
   factory StreamerGoals.fromJson(Map<String, dynamic> json) {
     return StreamerGoals(
@@ -54,6 +56,7 @@ class StreamerGoals {
             .toList(),
         twitch: json["twitch"],
         id: json["id"],
-        profileUrl: json["profileUrl"]);
+        profileUrl: json["profileUrl"],
+        completed: json["completed"]);
   }
 }

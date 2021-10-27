@@ -40,6 +40,7 @@ class RealtimeDatabase {
         (snapshot) => (snapshot.value as List<Object?>)
             .map((e) =>
                 StreamerGoals.fromJson(Map<String, dynamic>.from(e as Map)))
+            .where((element) => element.donationGoals.isNotEmpty)
             .toList());
   }
 }

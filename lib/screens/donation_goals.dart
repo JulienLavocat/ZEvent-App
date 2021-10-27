@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:zevent/models/streamer_goals.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
-import 'package:intl/intl.dart';
 
 class DonationsGoals extends StatefulWidget {
   const DonationsGoals({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class _DonationsGoalsState extends State<DonationsGoals> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UI.getAppBar("Streamers en lignes"),
+      appBar: UI.getAppBar("Donation goals"),
       drawer: UI.getDrawer(context),
       body: FutureBuilder(
         future: goals,
@@ -42,11 +41,9 @@ class _DonationsGoalsState extends State<DonationsGoals> {
       leading: Image.network(s.profileUrl),
       title: Text(
         s.displayName,
-        // style: s.online ? UI.onlineStreamer : UI.offlineStreamer,
       ),
-      // subtitle: Text(s.),
       trailing: Text(
-        NumberFormat.compact().format(s.donationGoals.length),
+        s.completed.toString() + "/" + s.donationGoals.length.toString(),
         style: UI.viewerCount,
       ),
       onTap: () => UI.streamLauncher(s.twitch));
