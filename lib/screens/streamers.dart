@@ -63,7 +63,8 @@ class StreamersPageState extends State<StreamersPage> {
         s.display,
         style: s.online ? UI.onlineStreamer : UI.offlineStreamer,
       ),
-      subtitle: Text(s.game),
+      subtitle: Text(s.online ? "${s.title}\n\n${s.game}" : s.game),
+      isThreeLine: true,
       trailing: Text(
         NumberFormat.compact().format(s.viewers),
         style: UI.viewerCount,
