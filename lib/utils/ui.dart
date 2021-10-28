@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zevent/screens/donation_goals.dart';
+import 'package:zevent/screens/event_calendar.dart';
 import 'package:zevent/screens/games.dart';
 import 'package:zevent/screens/notifications.dart';
 import 'package:zevent/screens/streamers.dart';
@@ -58,6 +59,16 @@ class UI {
               if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
               Navigator.of(ctx).push(
                   MaterialPageRoute(builder: (ctx) => const DonationsGoals()));
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text("Calendrier des événements"),
+            onTap: () {
+              Navigator.of(ctx).pop();
+              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+              Navigator.of(ctx).push(
+                  MaterialPageRoute(builder: (ctx) => const EventsCalendar()));
             },
           ),
           const Divider(),

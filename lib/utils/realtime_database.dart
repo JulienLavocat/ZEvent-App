@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:zevent/models/event.dart';
 import 'package:zevent/models/game_views.dart';
 import 'package:zevent/models/stats.dart';
 import 'package:zevent/models/streamer_goals.dart';
@@ -41,6 +42,14 @@ class RealtimeDatabase {
             .map((e) =>
                 StreamerGoals.fromJson(Map<String, dynamic>.from(e as Map)))
             .where((element) => element.donationGoals.isNotEmpty)
+            .toList());
+  }
+
+  static Future<List<EventModel>> getEvents() {
+    return FirebaseDatabase.instance.reference().child("events").once().then(
+        (snapshot) => (snapshot.value as List<Object?>)
+            .map(
+                (e) => EventModel.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList());
   }
 }
