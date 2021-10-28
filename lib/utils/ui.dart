@@ -125,8 +125,12 @@ class UI {
 
   static streamLauncher(String channel) async {
     final url = "https://twitch.tv/" + channel;
+    return launchUrl(url);
+  }
+
+  static launchUrl(String url) async {
     // ignore: avoid_print
-    print("Launching stream :>> " + url);
+    print("Launching url :>> " + url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {

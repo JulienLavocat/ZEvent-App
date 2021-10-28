@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zevent/models/event.dart';
+import 'package:zevent/screens/events_users_details.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:intl/intl.dart';
@@ -29,10 +30,17 @@ class _EventsCalendarState extends State<EventsCalendar> {
 
   Widget buildPage(BuildContext context, List<EventModel> events) {
     return DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: const TabBar(
             tabs: [
+              Tab(
+                child: Text(
+                  "Jeudi\n28 Oct.",
+                  style: TextStyle(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               Tab(
                 child: Text(
                   "Vendredi\n29 Oct.",
@@ -60,6 +68,8 @@ class _EventsCalendarState extends State<EventsCalendar> {
             padding: const EdgeInsets.all(8.0),
             child: TabBarView(
               children: [
+                getDayEvents(events, DateTime.utc(2021, 10, 28, 0, 0, 1),
+                    DateTime.utc(2021, 10, 28, 23, 59)),
                 getDayEvents(events, DateTime.utc(2021, 10, 29, 0, 0, 1),
                     DateTime.utc(2021, 10, 29, 23, 59)),
                 getDayEvents(events, DateTime.utc(2021, 10, 30, 0, 0, 1),
@@ -96,14 +106,9 @@ class _EventsCalendarState extends State<EventsCalendar> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                    onPressed: () {}, child: const Text("Organisateurs")),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextButton(onPressed: () {}, child: const Text("Participants")),
-                const SizedBox(
-                  height: 8,
-                ),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(EventUsersDetails.routeName, arguments: e),
+                    child: const Text("Participants")),
               ],
             )
           ],
