@@ -27,7 +27,7 @@ class _DonationsDetailsState extends State<DonationsDetails> {
               centerTitle: true,
               bottom: const TabBar(tabs: [
                 Tab(text: "Simples"),
-                Tab(text: "Récurents"),
+                Tab(text: "Récurrents"),
               ]),
             ),
             body: TabBarView(children: [
