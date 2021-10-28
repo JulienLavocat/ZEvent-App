@@ -39,8 +39,8 @@ class EventModel {
   factory EventModel.fromJson(Map<String, dynamic> json) {
     return EventModel(
       title: json["title"],
-      end: DateTime.parse(json["end"]),
-      start: DateTime.parse(json["start"]),
+      end: DateTime.parse(json["end"]).toLocal(),
+      start: DateTime.parse(json["start"]).toLocal(),
       organizers: List.from(json["organizers"] ?? [])
           .map((e) => EventUser.fromJson(Map<String, dynamic>.from(e)))
           .toList(),
