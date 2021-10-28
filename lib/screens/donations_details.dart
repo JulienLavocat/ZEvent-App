@@ -46,7 +46,10 @@ class _DonationsDetailsState extends State<DonationsDetails> {
 
   getDonationsList(StreamerGoals goals, List<DonationGoal> donationGoals) =>
       Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          padding: const EdgeInsets.only(
+            top: 8,
+            bottom: 8,
+          ),
           child: ListView.separated(
             separatorBuilder: (ctx, index) => const Divider(),
             itemCount: donationGoals.length,

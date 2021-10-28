@@ -9,10 +9,14 @@ class EventUser {
       {required this.display, required this.profileUrl, required this.url});
 
   factory EventUser.fromJson(Map<String, dynamic> json) {
+    String url = "";
+
     return EventUser(
         display: json["display"],
         profileUrl: json["profileUrl"],
-        url: json["twitch"] ?? json["url"]);
+        url: json["twitch"] != null
+            ? "https://twitch.tv/${json["twitch"]}"
+            : json["url"]);
   }
 }
 

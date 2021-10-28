@@ -29,7 +29,10 @@ class _DonationsGoalsState extends State<DonationsGoals> {
   }
 
   Widget buildPage(BuildContext ctx, List<StreamerGoals> goals) => Padding(
-        padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+        padding: const EdgeInsets.only(
+          top: 8,
+          bottom: 8,
+        ),
         child: ListView.separated(
             itemCount: goals.length,
             separatorBuilder: (ctx, index) {
