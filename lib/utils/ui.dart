@@ -22,14 +22,17 @@ class UI {
       child: ListView(
         children: <Widget>[
           Image.asset("assets/images/drawer_header.png"),
-          ListTile(
-            title: const Text("Statistiques globales"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx).push(
-                  MaterialPageRoute(builder: (ctx) => const ZEventPage()));
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: ListTile(
+              title: const Text("Statistiques globales"),
+              onTap: () {
+                Navigator.of(ctx).pop();
+                if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+                Navigator.of(ctx).push(
+                    MaterialPageRoute(builder: (ctx) => const ZEventPage()));
+              },
+            ),
           ),
           const Divider(),
           ListTile(
