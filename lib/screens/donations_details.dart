@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zevent/main.dart';
 import 'package:zevent/models/streamer_goals.dart';
 import 'package:zevent/utils/ui.dart';
-import 'package:intl/intl.dart';
 
 class DonationsDetails extends StatefulWidget {
   static const routeName = "/donations";

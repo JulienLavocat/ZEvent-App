@@ -51,7 +51,7 @@ class UI {
               Navigator.of(ctx).pop();
               if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
               Navigator.of(ctx)
-                  .push(MaterialPageRoute(builder: (ctx) => GamesPage()));
+                  .push(MaterialPageRoute(builder: (ctx) => const GamesPage()));
             },
           ),
           const Divider(),
@@ -121,23 +121,20 @@ class UI {
     // ignore: avoid_print
     print(error);
     return Center(
-      child: Text("Une erreur est survenue pendant le chargement.\n" +
-          error.toString()),
+      child: Text("Une erreur est survenue pendant le chargement.\n$error"),
     );
   }
 
   static streamLauncher(String channel) async {
-    final url = "https://twitch.tv/" + channel;
-    return launchUrl(url);
+    final url = "https://twitch.tv/$channel";
+    return handleLaunchUrl(url);
   }
 
-  static launchUrl(String url) async {
+  static handleLaunchUrl(String url) async {
     // ignore: avoid_print
-    print("Launching url :>> " + url);
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+    print("Launching url :>> $url");
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
     }
   }
 

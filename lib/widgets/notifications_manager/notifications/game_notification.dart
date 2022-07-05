@@ -17,7 +17,7 @@ class GameNotifications extends AbstractNotification {
         const Text(
             "Soyez notifiés dès que quelqu'un lance un stream sur ce jeux."),
         GameTypeahead(onSelect: (game) {
-          print("Selected game: " + game.name);
+          print("Selected game: ${game.name}");
           this.game = game;
         }),
         Padding(
@@ -40,6 +40,8 @@ class GameNotifications extends AbstractNotification {
                   FirebaseAuth.instance.currentUser!.uid, data);
               await FirebaseMessaging.instance
                   .subscribeToTopic(data.toString());
+
+              // ignore: use_build_context_synchronously
               Navigator.of(context).pop();
             },
           ),

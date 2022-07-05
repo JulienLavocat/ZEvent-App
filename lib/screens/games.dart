@@ -16,7 +16,7 @@ class GamesPage extends StatefulWidget {
 }
 
 class GamesPageState extends State<GamesPage> {
-  late StreamSubscription<Event> _subscription;
+  late StreamSubscription<DatabaseEvent> _subscription;
   List<GameViews>? games;
 
   @override
@@ -70,11 +70,10 @@ class GamesPageState extends State<GamesPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Flexible(
+                      fit: FlexFit.loose,
                       child: GestureDetector(
                         child: Image.network(
-                            "https://static-cdn.jtvnw.net/ttv-boxart/" +
-                                g.name +
-                                "-285x380.jpg"),
+                            "https://static-cdn.jtvnw.net/ttv-boxart/${g.name}-285x380.jpg"),
                         onTap: () {
                           Navigator.pushNamed(
                             context,
@@ -83,7 +82,6 @@ class GamesPageState extends State<GamesPage> {
                           );
                         },
                       ),
-                      fit: FlexFit.loose,
                     ),
                     Align(
                         alignment: Alignment.bottomLeft,

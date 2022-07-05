@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:zevent/models/game_data.dart';
 import 'package:zevent/models/notifications_data.dart';
@@ -7,10 +9,7 @@ import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 import 'package:zevent/widgets/games_typeahead.dart';
 import 'package:zevent/widgets/notifications_manager/abstract_notification.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:zevent/widgets/streamer_typeahead.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class StreamerAndGameNotification extends AbstractNotification {
   final Future<List<Streamer>> streamers = RealtimeDatabase.getStreamers();
@@ -55,6 +54,7 @@ class StreamerAndGameNotification extends AbstractNotification {
                         FirebaseAuth.instance.currentUser!.uid, data);
                     await FirebaseMessaging.instance
                         .subscribeToTopic(data.toString());
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context).pop();
                   },
                 ),

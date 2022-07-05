@@ -3,7 +3,6 @@ import 'package:zevent/models/event.dart';
 import 'package:zevent/screens/events_users_details.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
-import 'package:intl/intl.dart';
 
 class EventsCalendar extends StatefulWidget {
   const EventsCalendar({Key? key}) : super(key: key);
@@ -98,7 +97,7 @@ class _EventsCalendarState extends State<EventsCalendar> {
           children: [
             ListTile(
               subtitle:
-                  Text(e.humanizeStartEnd() + "\n" + e.humanizeOrganizers()),
+                  Text("${e.humanizeStartEnd()}\n${e.humanizeOrganizers()}"),
               title: Text(e.title),
               isThreeLine: true,
             ),

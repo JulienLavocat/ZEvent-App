@@ -9,8 +9,6 @@ class EventUser {
       {required this.display, required this.profileUrl, required this.url});
 
   factory EventUser.fromJson(Map<String, dynamic> json) {
-    String url = "";
-
     return EventUser(
         display: json["display"],
         profileUrl: json["profileUrl"],

@@ -6,16 +6,17 @@ import 'package:zevent/models/streamer_goals.dart';
 import 'package:zevent/models/streamers.dart';
 
 class RealtimeDatabase {
-  static DatabaseReference database = FirebaseDatabase.instance.reference();
+  static DatabaseReference database = FirebaseDatabase.instance.ref();
 
   static subscribeToStats(Function(StatsModel) handler) {
     return database.child("stats").onValue.listen((event) => handler(
-        StatsModel.fromJson(Map<String, dynamic>.from(event.snapshot.value))));
+        StatsModel.fromJson(
+            Map<String, dynamic>.from(event.snapshot.value as Map))));
   }
 
   static subscribeToGames(Function(List<GameViews>) handler) {
     return database.child("games").onValue.listen((event) => handler(
-        Map<String, Object?>.from(event.snapshot.value)
+        Map<String, Object?>.from(event.snapshot.value as Map)
             .entries
             .map((e) => GameViews.fromJson(
                 e.key, Map<String, dynamic>.from(e.value as Map)))
@@ -23,33 +24,31 @@ class RealtimeDatabase {
   }
 
   static subscribeToStreamers(Function(List<Streamer>) handler) {
-    return database.reference().child("streamers").onValue.listen((event) =>
-        handler((event.snapshot.value as List<Object?>)
+    return database.child("streamers").onValue.listen((event) => handler(
+        (event.snapshot.value as List<Object?>)
             .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList()));
   }
 
   static Future<List<Streamer>> getStreamers() {
-    return FirebaseDatabase.instance.reference().child("streamers").once().then(
-        (snapshot) => (snapshot.value as List<Object?>)
+    return database.child("streamers").once().then((event) =>
+        (event.snapshot.value as List<Object?>)
             .map((e) => Streamer.fromJson(Map<String, dynamic>.from(e as Map)))
             .toList());
   }
 
   static Future<List<StreamerGoals>> getDonationGoals() {
-    return FirebaseDatabase.instance.reference().child("goals").once().then(
-        (snapshot) => (snapshot.value as List<Object?>)
-            .map((e) =>
-                StreamerGoals.fromJson(Map<String, dynamic>.from(e as Map)))
-            .where((element) => element.donationGoals.isNotEmpty)
-            .toList());
+    return database.child("goals").once().then((event) => (event.snapshot.value
+            as List<Object?>)
+        .map((e) => StreamerGoals.fromJson(Map<String, dynamic>.from(e as Map)))
+        .where((element) => element.donationGoals.isNotEmpty)
+        .toList());
   }
 
   static Future<List<EventModel>> getEvents() {
-    return FirebaseDatabase.instance.reference().child("events").once().then(
-        (snapshot) => (snapshot.value as List<Object?>)
-            .map(
-                (e) => EventModel.fromJson(Map<String, dynamic>.from(e as Map)))
-            .toList());
+    return database.child("events").once().then((event) => (event.snapshot.value
+            as List<Object?>)
+        .map((e) => EventModel.fromJson(Map<String, dynamic>.from(e as Map)))
+        .toList());
   }
 }

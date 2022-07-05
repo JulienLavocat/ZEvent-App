@@ -17,7 +17,7 @@ class ZEventPage extends StatefulWidget {
 }
 
 class ZEventPageState extends State<ZEventPage> {
-  late StreamSubscription<Event> _statsSubscription;
+  late StreamSubscription<DatabaseEvent> _statsSubscription;
   StatsModel? stats;
 
   @override

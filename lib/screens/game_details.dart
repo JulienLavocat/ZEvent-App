@@ -17,7 +17,7 @@ class GameDetails extends StatefulWidget {
 }
 
 class GameDetailsState extends State<GameDetails> {
-  late StreamSubscription<Event> _subscription;
+  late StreamSubscription<DatabaseEvent> _subscription;
   List<Streamer>? streamers;
 
   @override

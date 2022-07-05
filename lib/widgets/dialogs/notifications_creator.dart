@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:zevent/utils/functions.dart';
 import 'package:zevent/widgets/notifications_manager/notifications_manager.dart';
 
 class NotificationCreatorPage extends StatefulWidget {
@@ -57,8 +56,8 @@ class NotificationCreatorState extends State<NotificationCreatorPage> {
 
   DropdownMenuItem<String> getDropDown(String n) {
     return DropdownMenuItem<String>(
-      child: Text(n),
       value: n,
+      child: Text(n),
     );
   }
 }

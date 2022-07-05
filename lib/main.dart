@@ -1,12 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:zevent/screens/donations_details.dart';
 import 'package:zevent/screens/events_users_details.dart';
 import 'package:zevent/screens/game_details.dart';
 import 'package:zevent/screens/zevent_page.dart';
-import 'package:zevent/utils/UI.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:zevent/utils/ui.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,9 @@ class _AppState extends State<App> {
   final Future<FirebaseApp> _initialization = performInitialization();
 
   static Future<FirebaseApp> performInitialization() async {
-    FirebaseApp firebase = await Firebase.initializeApp();
+    FirebaseApp firebase = await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     await FirebaseAuth.instance.signInAnonymously();
 
@@ -64,8 +67,7 @@ class _AppState extends State<App> {
           if (snapshot.hasError) {
             return Scaffold(
               body: Center(
-                child: Text("Error while loading Firebase, " +
-                    snapshot.error.toString()),
+                child: Text("Error while loading Firebase, ${snapshot.error}"),
               ),
             );
           }

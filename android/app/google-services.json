@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:653828792922:android:2bf1725b3cb2fc2f2e2e63",
+        "mobilesdk_app_id": "1:653828792922:android:6cc14e6876e4529f2e2e63",
         "android_client_info": {
           "package_name": "me.julienlavocat.zevent"
         }
@@ -30,6 +30,49 @@
             {
               "client_id": "653828792922-6rehjdejp8q268d5169is00j254nvhq1.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "653828792922-ldnh8kavulj0fr874u7q59muh0h0iiva.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "xyz.thebad.zevent.zevent"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653828792922:android:2bf1725b3cb2fc2f2e2e63",
+        "android_client_info": {
+          "package_name": "xyz.thebad.zevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653828792922-6rehjdejp8q268d5169is00j254nvhq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9NDpFt0rAXk5oP9idQk7ScVmpqOS4zJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653828792922-6rehjdejp8q268d5169is00j254nvhq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653828792922-ldnh8kavulj0fr874u7q59muh0h0iiva.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "xyz.thebad.zevent.zevent"
+              }
             }
           ]
         }

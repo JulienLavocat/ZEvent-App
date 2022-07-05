@@ -47,7 +47,7 @@ class _DonationsGoalsState extends State<DonationsGoals> {
         s.displayName,
       ),
       trailing: Text(
-        s.completed.toString() + "/" + s.donationGoals.length.toString(),
+        "${s.completed}/${s.donationGoals.length}",
         style: UI.viewerCount,
       ),
       onTap: () => Navigator.pushNamed(

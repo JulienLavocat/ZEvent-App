@@ -17,7 +17,7 @@ class StreamersPage extends StatefulWidget {
 class StreamersPageState extends State<StreamersPage> {
   final FirebaseDatabase database = FirebaseDatabase.instance;
 
-  late StreamSubscription<Event> _streamersSubscription;
+  late StreamSubscription<DatabaseEvent> _streamersSubscription;
   List<Streamer>? streamers;
 
   @override

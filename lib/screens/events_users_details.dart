@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zevent/models/event.dart';
-import 'package:zevent/models/streamer_goals.dart';
 import 'package:zevent/utils/ui.dart';
-import 'package:intl/intl.dart';
 
 class EventUsersDetails extends StatefulWidget {
   static const routeName = "/events";
@@ -52,7 +50,7 @@ class _EventUsersDetailsState extends State<EventUsersDetails> {
                 title: Text(
                   s.display,
                 ),
-                onTap: () => UI.launchUrl(s.url),
+                onTap: () => UI.handleLaunchUrl(s.url),
               );
             },
             separatorBuilder: (e, i) => const Divider(),
