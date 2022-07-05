@@ -1,0 +1,43 @@
+{
+	"release": {
+		"branches": [
+			"master"
+		]
+	},
+	"plugins": [
+		"@semantic-release/commit-analyzer",
+		[
+			"@semantic-release/exec",
+			{
+				"prepareCmd": "yq -i '.version = \"${nextRelease.version}\"' pubspec.yaml",
+				"publishCmd": "flutter build appbundle --debug && flutter build apk --debug && flutter build web"
+			}
+		],
+		"@semantic-release/release-notes-generator",
+		"@semantic-release/changelog",
+		[
+			"@semantic-release/git",
+			{
+				"assets": [
+					"pubspec.yaml",
+					"CHANGELOG.md"
+				]
+			}
+		],
+		[
+			"@semantic-release/github",
+			{
+				"assets": [
+					{
+						"path": "build/app/outputs/apk/debug/app-debug.apk",
+						"label": "zevent-${nextRelease.version}.apk"
+					},
+					{
+						"path": "build/app/outputs/bundle/debug/app-debug.aab",
+						"label": "zevent-${nextRelease.version}.aab"
+					}
+				]
+			}
+		]
+	]
+}

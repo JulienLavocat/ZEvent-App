@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+name: Release
+
+jobs:
+  build-release:
+    name: Build and create release
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: mikefarah/yq@master
+      - run: npm i -g semantic-release @semantic-release/exec @semantic-release/git @semantic-release/changelog
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.x"
+          channel: "stable"
+
+      - run: flutter test
+
+      - run: semantic-release
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ZEVENT_33DD3 }}"
+          projectId: zevent-33dd3
+          channelId: live
