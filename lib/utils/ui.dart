@@ -21,7 +21,7 @@ class UI {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          Image.asset("assets/images/drawer_header.png"),
+          Image.asset("assets/images/drawer_header_2022.png"),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: ListTile(
