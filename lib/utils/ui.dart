@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zevent/screens/donation_goals.dart';
 import 'package:zevent/screens/event_calendar.dart';
@@ -9,6 +10,15 @@ import 'package:zevent/screens/notifications.dart';
 import 'package:zevent/screens/streamers.dart';
 import 'package:zevent/screens/zevent_page.dart';
 import 'package:intl/intl.dart';
+import 'package:zevent/utils/providers/dark_theme_provider.dart';
+import 'package:zevent/utils/user_preferences.dart';
+
+class PageEntry {
+  String name;
+  Widget Function(BuildContext context) builder;
+
+  PageEntry(this.name, this.builder);
+}
 
 class UI {
   static TextStyle onlineStreamer = const TextStyle(color: Colors.green);
@@ -17,74 +27,57 @@ class UI {
   static TextStyle gamesViewersCount = const TextStyle(fontSize: 14);
   static TextStyle gamesTitle = TextStyle(color: Colors.grey[700]);
 
-  static Drawer getDrawer(BuildContext ctx) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          Image.asset("assets/images/drawer_header_2022.png"),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: ListTile(
-              title: const Text("Statistiques globales"),
-              onTap: () {
-                Navigator.of(ctx).pop();
-                if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-                Navigator.of(ctx).push(
-                    MaterialPageRoute(builder: (ctx) => const ZEventPage()));
-              },
+  static List<PageEntry> pages = <PageEntry>[
+    PageEntry("Statistiques globales", ((context) => const ZEventPage())),
+    PageEntry("Streameurs", ((context) => const StreamersPage())),
+    PageEntry("Jeux streamés", ((context) => const GamesPage())),
+    PageEntry("Donation goals", ((context) => const DonationsGoals())),
+    PageEntry(
+        "Calendrier des événements", ((context) => const EventsCalendar())),
+    PageEntry("Notifications", ((context) => const NotificationsPage())),
+  ];
+
+  static SafeArea getDrawer(BuildContext ctx) {
+    final themeChange = Provider.of<DarkThemeProvider>(ctx);
+
+    return SafeArea(
+      child: Drawer(
+        child: Column(
+          children: <Widget>[
+            Image.asset("assets/images/drawer_header_2022.png"),
+            Expanded(
+              child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    PageEntry page = pages[index];
+                    ListTile tile = ListTile(
+                      title: Text(page.name),
+                      onTap: () {
+                        Navigator.of(ctx).pop();
+                        if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
+                        Navigator.of(ctx)
+                            .push(MaterialPageRoute(builder: page.builder));
+                      },
+                    );
+                    return index == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: tile,
+                          )
+                        : tile;
+                  },
+                  separatorBuilder: (ctx, i) => const Divider(),
+                  itemCount: pages.length),
             ),
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Streameurs"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx).push(
-                  MaterialPageRoute(builder: (ctx) => const StreamersPage()));
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Jeux streamés"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx)
-                  .push(MaterialPageRoute(builder: (ctx) => const GamesPage()));
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Donation goals"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx).push(
-                  MaterialPageRoute(builder: (ctx) => const DonationsGoals()));
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Calendrier des événements"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx).push(
-                  MaterialPageRoute(builder: (ctx) => const EventsCalendar()));
-            },
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text("Notifications"),
-            onTap: () {
-              Navigator.of(ctx).pop();
-              if (Navigator.of(ctx).canPop()) Navigator.of(ctx).pop();
-              Navigator.of(ctx).push(MaterialPageRoute(
-                  builder: (ctx) => const NotificationsPage()));
-            },
-          ),
-        ],
+            const Divider(),
+            IconButton(
+              onPressed: () {
+                themeChange.darkTheme = !themeChange.darkTheme;
+              },
+              icon: Icon(
+                  !themeChange.darkTheme ? Icons.brightness_2 : Icons.wb_sunny),
+            )
+          ],
+        ),
       ),
     );
   }

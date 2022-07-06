@@ -39,7 +39,7 @@ class ZEventPageState extends State<ZEventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: UI.getAppBar("ZEvent 2021"),
+        appBar: UI.getAppBar("ZEvent 2022"),
         drawer: UI.getDrawer(context),
         body: stats != null
             ? renderStats(context)

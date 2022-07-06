@@ -38,6 +38,8 @@ dependencies:
   firebase_database: ^9.0.18
   cloud_firestore: ^3.2.1
   cloud_functions: ^3.3.1
+  shared_preferences: ^2.0.15
+  provider: ^6.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

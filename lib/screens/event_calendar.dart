@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:zevent/models/event.dart';
 import 'package:zevent/screens/events_users_details.dart';
+import 'package:zevent/utils/providers/dark_theme_provider.dart';
 import 'package:zevent/utils/realtime_database.dart';
 import 'package:zevent/utils/ui.dart';
 
@@ -15,7 +17,6 @@ class _EventsCalendarState extends State<EventsCalendar> {
   final Future<List<EventModel>> _events = RealtimeDatabase.getEvents();
   @override
   Widget build(BuildContext context) {
-    // return buildPage(context, []);
     return Scaffold(
       appBar: UI.getAppBar("Calendrier des événements"),
       drawer: UI.getDrawer(context),
@@ -28,40 +29,30 @@ class _EventsCalendarState extends State<EventsCalendar> {
   }
 
   Widget buildPage(BuildContext context, List<EventModel> events) {
+    final themeProvider = Provider.of<DarkThemeProvider>(context);
+    final dates = <String>[
+      "Jeudi\n28 Oct.",
+      "Vendredi\n29 Oct.",
+      "Samedi\n30 Oct.",
+      "Dimanche\n31 Oct."
+    ];
     return DefaultTabController(
         length: 4,
         child: Scaffold(
-          appBar: const TabBar(
-            tabs: [
-              Tab(
-                child: Text(
-                  "Jeudi\n28 Oct.",
-                  style: TextStyle(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Vendredi\n29 Oct.",
-                  style: TextStyle(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Samedi\n30 Oct.",
-                  style: TextStyle(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Dimanche\n31 Oct.",
-                  style: TextStyle(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
+          appBar: TabBar(
+            tabs: dates
+                .map(
+                  (e) => Tab(
+                    child: Text(
+                      e,
+                      textAlign: TextAlign.center,
+                      style: !themeProvider.darkTheme
+                          ? const TextStyle(color: Colors.black)
+                          : null,
+                    ),
+                  ),
+                )
+                .toList(),
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
